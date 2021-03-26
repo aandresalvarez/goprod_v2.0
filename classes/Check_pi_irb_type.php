@@ -117,10 +117,12 @@ class check_pi_irb_type
         $link = '<a target="_blank" class="btn btn-link" href=" ' . APP_PATH_WEBROOT . 'ProjectSetup/index.php?to_prod_plugin=3&pid=' . $_GET['pid'] . '"  >' . lang('VIEW') . '</a>';
         $array = self::CreateResultArray($where, $issue, $link);
         $purpose = $Proj->project['purpose'];
-        if ($purpose !== "2" or $purpose !== "3") {
-                return $array;// with results - this is a JustFor fun project.
-            } else {
-                return array(); // no results. this is a real project
-            }
+
+        //If not Research AND not Quality Improvement
+        if ($purpose !== "2" && $purpose !== "3") {
+            return $array;// Either a Practice, Operational Support, or Other Project
+        } else {
+            return array(); // no results. This is either Research OR Quality Improvement
+        }
     }
 }
